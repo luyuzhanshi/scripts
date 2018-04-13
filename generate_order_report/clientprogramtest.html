@@ -1,0 +1,65 @@
+<html>
+<button onClick='sendSpreadsheet()'>test</button>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js'></script>
+  <script src='spreadSheet.json'></script>
+  <script>
+  var sheet = spreadsheet
+function sendSpreadsheet(){
+    generateOrderReport([{a:'firsta',b:'second',c:'third'},{a:'first',b:'second',c:'third'},{a:'fourth',b:'fifth',c:'sixth',d:'seventh'}])
+  }
+function generateOrderReport(spreadsheet){
+  	var output = []
+  	var relationships = _.groupBy(spreadsheet,function(row){
+      var a = row.a
+      var b = row.b
+      var c = row.c
+      var d = row.d
+      var e = a + b + c + d
+      return e
+      // //get the brand name
+  		// var brand = row['Brand']
+      // // get the vendor name
+  		// var vendor = row['SO Vendor Name']
+      // // get the factory name
+  		// var factory = row['SO Factory Name']
+      // //concatenate all the strings above
+  		// var joinString = brand + vendor + factory
+      // //replace any empty spaces in the concatenated string with no space
+  		// return joinString.replace(/ /g,'')
+  	})
+
+    var x = relationships
+    return x
+  }
+  	// for (var key in relationships){
+  	// 	var row = {}
+  	// 	var orders = relationships[key]
+  	// 	var firstOrder = orders[0]
+  	// 	var firstDateString = firstOrder['DC Date']
+  	// 	var firstDate = moment(firstDateString,'MM/DD/YYYY').format()
+  	// 	var orderSummary = orders.reduce(function(sum,order){
+  	// 		var amountString = order['SO Ext ELC']
+  	// 		var parsedString = amountString.replace(/\$/g,'').replace(/,/g,'')
+  	// 		var amount = parseFloat(parsedString)
+  	// 		sum.total += amount
+  	// 		var dateString = order['DC Date']
+  	// 		var date = moment(dateString,'MM/DD/YYYY').format()
+  	// 		if (date > sum.lastDate){
+  	// 			sum.lastDate = date
+  	// 		}
+  	// 		return sum
+  	// 	},{
+  	// 		total: 0,
+  	// 		lastDate: firstDate
+  	// 	})
+  	// 	row['Brand'] = firstOrder['Brand']
+  	// 	row['SO Vendor Name'] = firstOrder['SO Vendor Name']
+  	// 	row['SO Factory Name'] = firstOrder['SO Factory Name']
+  	// 	row['Total SO Ext ELC'] = orderSummary.total.toFixed(2)
+  	// 	row['Last Delivery Date'] = moment(orderSummary.lastDate).format('MM/DD/YYYY')
+  	// 	output.push(row)
+  	// }
+  	// return output
+  </script>
+</html>

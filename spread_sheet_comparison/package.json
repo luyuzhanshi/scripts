@@ -1,0 +1,21 @@
+{
+  "name": "leopluridon",
+  "version": "1.0.0",
+  "description": "determines which of the vendor factory relationships have open orders",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\\"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csvjson": "^5.0.0",
+    "moment": "^2.22.0",
+    "underscore": "^1.8.3"
+  }
+}

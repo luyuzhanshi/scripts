@@ -1,0 +1,5 @@
+{
+	"input": "./data/input.txt",
+	"output": "./data/output.csv",
+	"master": "./data/master.txt"
+}
