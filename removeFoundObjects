@@ -1,0 +1,100 @@
+<button onclick='sendSpreadSheets()'>test</button>
+<div id='display'></div>
+<script>
+var spreadsheet = [ { BRAND: 'Catherines',
+    'Factory ID': '4135',
+    'Factory Name': 'Qingdao Moda Jewelry Co Ltd' },
+  { BRAND: 'Catherines',
+    'Factory ID': '4618',
+    'Factory Name': 'GG Vina' },
+  { BRAND: 'Catherines',
+    'Factory ID': '4302',
+    'Factory Name': 'HUNG YEN GARMENT JOINT STOCK CO' },
+  { BRAND: 'Catherines',
+    'Factory ID': '496',
+    'Factory Name': 'asdf' } ]
+
+var masterSpreadsheet = [ { 'Amber Road ID #': 'FTY-QINGDAO MODA JEWELRY CO. LTD.',
+    'Supplier Name': 'QINGDAO MODA JEWELRY CO., LTD.',
+    'ascena Status': 'Active',
+    'Supplier Type': 'Factory',
+    'Catherines ID': '4135',
+    'Dressbarn ID': '4135',
+    'Justice ID': '4135',
+    'Lane Bryant ID': '4135',
+    'Maurices ID': '4135',
+    'Oracle ID  (L5)': '' },
+  { 'Amber Road ID #': 'FTY-GG VINA',
+    'Supplier Name': 'GG VINA',
+    'ascena Status': 'Active',
+    'Supplier Type': 'Factory',
+    'Catherines ID': '4618',
+    'Dressbarn ID': '4618',
+    'Justice ID': '4618',
+    'Lane Bryant ID': '4618',
+    'Maurices ID': '4618',
+    'Oracle ID  (L5)': '' },
+  { 'Amber Road ID #': 'FTY-HUNG YEN GARMENT CORPORATION - JSC',
+    'Supplier Name': 'HUNG YEN GARMENT CORPORATION - JSC',
+    'ascena Status': 'Active',
+    'Supplier Type': 'Factory',
+    'Catherines ID': '',
+    'Dressbarn ID': '4302',
+    'Justice ID': '',
+    'Lane Bryant ID': '4302',
+    'Maurices ID': '',
+    'Oracle ID  (L5)': '' } ]
+
+var sendSpreadSheets = function(){
+  document.getElementById('display').innerHTML = generateOrderReport(spreadsheet, masterSpreadsheet)
+}
+
+var generateOrderReport = function(spreadsheet, masterSpreadsheet){
+	var output = []
+  for (var i in spreadsheet){
+    var row = spreadsheet[i]
+    for(var a = 0; a < masterSpreadsheet.length; a++){
+      var catherinesID = masterSpreadsheet[a]['Catherines ID']
+      var dressbarnID = masterSpreadsheet[a]['Dressbarn ID']
+      var justiceID = masterSpreadsheet[a]['Justice ID']
+      var laneBryantID = masterSpreadsheet[a]['Lane Bryant ID']
+      var mauriceID = masterSpreadsheet[a]['Maurices ID']
+      var inputFactoryId = row['Factory ID']
+      var isMatch = matching(catherinesID, dressbarnID, justiceID, laneBryantID, mauriceID, inputFactoryId)
+      if (isMatch == true){
+        row.matched = true
+      }
+      if (isMatch == false){
+        row.matched = false
+      }
+    }
+    function matching(catherinesID, dressbarnID, justiceID, laneBryantID, mauriceID, inputFactoryId){
+      var matched = false
+      if (inputFactoryId == catherinesID){
+          matched = true
+      }
+      if (inputFactoryId == dressbarnID){
+          matched = true
+      }
+      if (inputFactoryId == justiceID){
+          matched = true
+      }
+      if (inputFactoryId == laneBryantID){
+          matched = true
+      }
+      if (inputFactoryId == mauriceID){
+          matched = true
+      }
+      return matched
+    }
+  }
+  for (var i in spreadsheet){
+    var row2 = spreadsheet[i]
+    if(row2.matched == false){
+      output.push(row2)
+    }
+  }
+  return output
+}
+
+</script>
