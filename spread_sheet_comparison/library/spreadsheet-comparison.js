@@ -1,37 +1,18 @@
 var generateOrderReport = function(spreadsheet, masterSpreadsheet){
 	var output = []
-		for (var i in masterSpreadsheet){
-					var masterRow = masterSpreadsheet[i]
-					var row = spreadsheet.find(function(inputRow){
-						var masterFactoryId = JSON.stringify(masterSpreadsheet[i]['Factory ID'])
-						var masterVendorId = JSON.stringify(masterSpreadsheet[i]['Vendor ID'])
-						var masterId = masterFactoryId + masterVendorId
+	for (var i in masterSpreadsheet){
+		var masterRow = masterSpreadsheet[i]
+		var row = spreadsheet.find(doIdsMatch,masterRow) || {}
+		masterRow[' Total SO Ext ELC '] = (row[' Total SO Ext ELC '] || 'N/A')
+			.replace('$','').replace(/ /g,'').replace(/,/g,'')
+		masterRow['Last Delivery Date'] = row['Last Delivery Date'] || 'N/A'
+	    output.push(masterRow)
+	}
+	return output
+}
 
-						var inputFactoryId = JSON.stringify(inputRow['Factory ID'])
-						var inputVendorId = JSON.stringify(inputRow['Vendor ID'])
-						var inputId = inputFactoryId + inputVendorId
-
-					return masterId == inputId
-				})
-        if(row){
-					row[' Total SO Ext ELC '] = row[' Total SO Ext ELC '].replace('$','');
-					row[' Total SO Ext ELC '] = row[' Total SO Ext ELC '].replace(/ /g,'')
-					row[' Total SO Ext ELC '] = row[' Total SO Ext ELC '].replace(/,/g,'')
-					console.log(row[' Total SO Ext ELC '])
-  				masterRow[' Total SO Ext ELC '] = row[' Total SO Ext ELC ']
-  				masterRow['Last Delivery Date'] = row['Last Delivery Date']
-  				output.push(masterRow)
-      	}
-	      if(!row){
-	        masterRow[' Total SO Ext ELC '] = 'N/A'
-	        masterRow['Last Delivery Date'] = 'N/A'
-	        output.push(masterRow)
-	    	}
-		}
-		for(i=0;i<output.length;i++){
-			console.log(output[i][' Total SO Ext ELC '])
-		}
-		return output
+var doIdsMatch = function(row){
+	return this['Factory ID'] == row['Factory ID'] && this['Vendor ID'] == row['Vendor ID']
 }
 
 module.exports = generateOrderReport
